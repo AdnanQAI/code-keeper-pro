@@ -6,7 +6,24 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="format-detection" content="telephone=no">
-    <title>Code & Files Keeper</title>
+    <title>Code & Files Keeper Pro</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="application-name" content="Code Keeper Pro">
+    <meta name="apple-mobile-web-app-title" content="CodeKeeper">
+    <meta name="description" content="Advanced code and files management with export capabilities">
+    <meta name="theme-color" content="#4CAF50">
+    <meta name="msapplication-TileColor" content="#4CAF50">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%234CAF50'/%3E%3Cpath d='M128 96h256v320H128z' fill='%23fff'/%3E%3Cpath d='M160 160h192v32H160zm0 64h192v32H160zm0 64h128v32H160z' fill='%234CAF50'/%3E%3C/svg%3E">
+    
+    <!-- iOS Splash Screens -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
     <!-- PDF Export Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -24,6 +41,43 @@
             min-height: 100vh;
             padding: 20px;
             margin: 0;
+        }
+        /* PWA Specific Styles */
+        @media (display-mode: standalone) {
+            body {
+                padding-top: env(safe-area-inset-top);
+                padding-bottom: env(safe-area-inset-bottom);
+            }
+        }
+        
+        /* iOS Safari Specific */
+        @supports (-webkit-touch-callout: none) {
+            .container {
+                padding-bottom: env(safe-area-inset-bottom, 20px);
+            }
+        }
+        
+        /* Touch-friendly improvements */
+        button, .btn {
+            min-height: 44px;
+            touch-action: manipulation;
+        }
+        
+        /* Prevent zoom on inputs */
+        input[type="text"], textarea {
+            font-size: 16px;
+        }
+        
+        /* Install button animation */
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
         .container {
             max-width: 1000px;
@@ -3925,5 +3979,72 @@
             }
         }
     </script>
+    <!-- PWA Service Worker Registration -->
+    <script>
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(function(err) {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+
+        // PWA Install Prompt
+        let deferredPrompt;
+        const installButton = document.createElement('button');
+        installButton.textContent = '📱 تثبيت التطبيق';
+        installButton.style.cssText = 
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: none;
+            font-family: inherit;
+        ;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installButton.style.display = 'block';
+            document.body.appendChild(installButton);
+        });
+
+        installButton.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(User response to the install prompt: +outcome);
+                deferredPrompt = null;
+                installButton.style.display = 'none';
+            }
+        });
+
+        // Hide install button after installation
+        window.addEventListener('appinstalled', () => {
+            installButton.style.display = 'none';
+            console.log('PWA was installed');
+        });
+
+        // Check if app is installed
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            console.log('App is running in standalone mode');
+        }
+    </script>
 </body>
 </html>
+
+
+

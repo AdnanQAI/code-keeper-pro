@@ -1,0 +1,50 @@
+{
+  "name": "Code & Files Keeper Pro",
+  "short_name": "CodeKeeper",
+  "description": "Advanced code and files management with export capabilities",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a1a",
+  "theme_color": "#4CAF50",
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%234CAF50'/%3E%3Cpath d='M128 96h256v320H128z' fill='%23fff'/%3E%3Cpath d='M160 160h192v32H160zm0 64h192v32H160zm0 64h128v32H160z' fill='%234CAF50'/%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%234CAF50'/%3E%3Cpath d='M128 96h256v320H128z' fill='%23fff'/%3E%3Cpath d='M160 160h192v32H160zm0 64h192v32H160zm0 64h128v32H160z' fill='%234CAF50'/%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "utilities", "developer"],
+  "screenshots": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1280 720'%3E%3Crect width='1280' height='720' fill='%23f5f5f5'/%3E%3Ctext x='640' y='360' text-anchor='middle' font-size='48' fill='%23333'%3ECode Keeper Pro%3C/text%3E%3C/svg%3E",
+      "sizes": "1280x720",
+      "type": "image/svg+xml",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Add New Code",
+      "short_name": "Add Code",
+      "description": "Quickly add new code snippet",
+      "url": "/?action=add",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z' fill='%234CAF50'/%3E%3C/svg%3E",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}
